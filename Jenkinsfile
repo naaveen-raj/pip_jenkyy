@@ -1,6 +1,6 @@
  pipeline {
   agent any
-  tools { nodejs 'node18' } 
+  tools { nodejs 'node25' } 
   stages {
     stage('Checkout') { steps { checkout scm } }
     stage('Build') {
