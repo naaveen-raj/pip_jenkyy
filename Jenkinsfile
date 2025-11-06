@@ -15,7 +15,7 @@ pipeline {
       steps {
         sh 'node server.js &'
         sh 'sleep 2'
-        sh 'curl -f http://13.53.217.206:3000/health || echo Health check failed'
+        sh 'curl -f http://localhost:3000/health || echo Health check failed'
       }
     }
 
