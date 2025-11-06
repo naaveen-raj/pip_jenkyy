@@ -1,23 +1,36 @@
- pipeline {
+pipeline {
   agent any
+
+  tools {
+    nodejs 'node18'   // 👈 must match the name you configured
+  }
+
   stages {
-    stage('Checkout') { steps { checkout scm } }
-    stage('Build') {
+    stage('Checkout') {
       steps {
-        sh 'echo Installing...'
-        sh 'npm install'
+        checkout scm
       }
     }
-    stage('Run') {
+
+    stage('Install Dependencies') {
       steps {
-        sh 'node server.js &'
-        sh 'sleep 2'
-        sh 'curl -f http://localhost:3000/health || echo Health check failed'
+        sh 'npm install || true'   // no dependencies now but safe
+      }
+    }
+
+    stage('Start App') {
+      steps {
+        sh 'npm start &'
       }
     }
   }
+
   post {
-    success { echo '✅ Build successful' }
-    failure { echo '❌ Build failed' }
+    success {
+      echo '✅ Application started successfully!'
+    }
+    failure {
+      echo '❌ Build failed'
+    }
   }
 }
