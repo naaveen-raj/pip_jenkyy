@@ -11,7 +11,7 @@
         sh 'npm install'
       }
     }
-    stage('Run') {
+     stage('Run') {
       steps {
         sh 'node server.js &'
         sh 'sleep 2'
