@@ -11,6 +11,14 @@ pipeline {
         checkout scm
       }
     }
+     stage('Run') {
+      steps {
+        sh 'node server.js &'
+        sh 'sleep 2'
+        sh 'curl -f http://localhost:3000/health || echo Health check failed'
+      }
+    }
+
 
     stage('Install Dependencies') {
       steps {
